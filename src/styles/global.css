@@ -301,7 +301,7 @@ pre code {
   margin-bottom: 0.15rem;
 }
 
-.post-list a.title {
+.post-list .title {
   color: var(--text);
   font-weight: 600;
   font-size: 1.08rem;

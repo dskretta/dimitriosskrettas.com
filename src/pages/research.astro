@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Edit these lists to update the page — no other changes needed.
+// Talks and publications sections only appear once their lists have entries,
+// so add to them whenever something lands. Set `href` to link out.
+
+type Entry = {
+  title: string;
+  venue: string;
+  year: string;
+  description: string;
+  href?: string;
+};
+
+const talks: Entry[] = [
+  // { title: 'Talk title', venue: 'BSides Detroit', year: '2026', description: '...', href: '...' },
+];
+
+const publications: Entry[] = [
+  // { title: 'Paper title', venue: 'Where published', year: '2026', description: '...', href: '...' },
+];
+
+// What you're actively digging into — short phrases.
+const activeResearch: string[] = [
+  'Add a current research topic here',
+  'And another here',
+];
+---
+
+<BaseLayout
+  title="Research"
+  description="Ongoing security research, with talks and publications as they land."
+>
+  <span class="mono-label">// work in progress</span>
+  <h1>Research</h1>
+
+  <p class="muted">
+    Active areas I'm digging into right now. Nothing formally published yet —
+    findings get written up on the <a href="/blog/">blog</a> first, and
+    anything that grows into a talk or paper will be listed here.
+  </p>
+
+  <h2>Currently researching</h2>
+  <ul>
+    {activeResearch.map((item) => <li>{item}</li>)}
+  </ul>
+
+  {
+    talks.length > 0 && (
+      <>
+        <h2>Talks</h2>
+        <ul class="post-list">
+          {talks.map((t) => (
+            <li>
+              <span class="date">{t.venue} · {t.year}</span>
+              {t.href ? (
+                <a class="title" href={t.href}>{t.title}</a>
+              ) : (
+                <span class="title">{t.title}</span>
+              )}
+              <p>{t.description}</p>
+            </li>
+          ))}
+        </ul>
+      </>
+    )
+  }
+
+  {
+    publications.length > 0 && (
+      <>
+        <h2>Publications & writeups</h2>
+        <ul class="post-list">
+          {publications.map((p) => (
+            <li>
+              <span class="date">{p.venue} · {p.year}</span>
+              {p.href ? (
+                <a class="title" href={p.href}>{p.title}</a>
+              ) : (
+                <span class="title">{p.title}</span>
+              )}
+              <p>{p.description}</p>
+            </li>
+          ))}
+        </ul>
+      </>
+    )
+  }
+</BaseLayout>
