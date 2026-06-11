@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { GITHUB_URL } from '../consts';
+---
+
+<BaseLayout title="About" description="Who I am and what I'm working toward in security.">
+  <span class="mono-label">// whoami</span>
+  <h1>About</h1>
+
+  <p>
+    <!-- TODO: Replace this placeholder bio with your own. -->
+    I'm Dimitrios, a cybersecurity student and professional. I'm interested in
+    how systems break — and in building the detections, tooling, and habits
+    that keep them from breaking quietly.
+  </p>
+
+  <p>
+    Right now I'm focused on blue-team fundamentals: log analysis, detection
+    engineering, and home-lab experimentation. I write up what I learn on the
+    <a href="/blog/">blog</a> and keep my code on
+    <a href={GITHUB_URL}>GitHub</a>.
+  </p>
+
+  <h2>Currently</h2>
+  <ul>
+    <li>Studying — <em>add your program / certs in progress here</em></li>
+    <li>Building — <em>add what you're working on here</em></li>
+    <li>Learning — <em>add tools or topics here</em></li>
+  </ul>
+
+  <h2>Contact</h2>
+  <p>
+    The best way to reach me is through
+    <a href={GITHUB_URL}>GitHub</a>.
+    <!-- Add email / LinkedIn here when ready (also see src/consts.ts SOCIALS). -->
+  </p>
+</BaseLayout>

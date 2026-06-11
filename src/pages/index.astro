@@ -1,0 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { AUTHOR, TAGLINE, SOCIALS } from '../consts';
+
+const projects = (await getCollection('projects'))
+  .filter((p) => p.data.featured)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 4);
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: '2-digit' });
+---
+
+<BaseLayout>
+  <section class="hero">
+    <span class="mono-label">// {TAGLINE}<span class="cursor"></span></span>
+    <h1>{AUTHOR}</h1>
+    <p class="lede">
+      I work on the defensive side of security — building detections, breaking
+      things in the lab to understand how they fail, and writing up what I
+      learn along the way.
+    </p>
+    <div class="social-row">
+      {SOCIALS.map(({ label, href }) => <a href={href} rel="me">{label}</a>)}
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Featured projects</h2>
+      <a class="more" href="/projects/">view all →</a>
+    </div>
+    <div class="card-grid">
+      {projects.map((project) => <ProjectCard project={project} />)}
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Recent posts</h2>
+      <a class="more" href="/blog/">view all →</a>
+    </div>
+    <ul class="post-list">
+      {
+        posts.map((post) => (
+          <li>
+            <span class="date">{fmt(post.data.pubDate)}</span>
+            <a class="title" href={`/blog/${post.id}/`}>{post.data.title}</a>
+            <p>{post.data.description}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>

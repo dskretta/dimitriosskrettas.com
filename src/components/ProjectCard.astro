@@ -1,0 +1,19 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { title, description, tags, repo, demo } = project.data;
+const href = demo ?? repo ?? '#';
+---
+
+<a class="card" href={href} target="_blank" rel="noopener noreferrer">
+  <h3>{title}</h3>
+  <p>{description}</p>
+  <div class="tag-row">
+    {tags.map((tag) => <span class="tag">{tag}</span>)}
+  </div>
+</a>
