@@ -1,0 +1,52 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  // Tags that always get a page, even before any post uses them —
+  // other pages link to these (e.g. the CTF Writeups project card).
+  const PINNED_TAGS = ['ctf'];
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  const tags = new Set([
+    ...PINNED_TAGS,
+    ...posts.flatMap((post) => post.data.tags.map((t) => t.toLowerCase())),
+  ]);
+  return [...tags].map((tag) => ({
+    params: { tag },
+    props: {
+      posts: posts
+        .filter((post) => post.data.tags.some((t) => t.toLowerCase() === tag))
+        .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+    },
+  }));
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: '2-digit', timeZone: 'UTC' });
+---
+
+<BaseLayout title={`Tagged: ${tag}`} description={`Posts tagged "${tag}".`}>
+  <span class="mono-label">// tag</span>
+  <h1>{tag}</h1>
+  {
+    posts.length > 0 ? (
+      <ul class="post-list">
+        {posts.map((post) => (
+          <li>
+            <span class="date">{fmt(post.data.pubDate)}</span>
+            <a class="title" href={`/blog/${post.id}/`}>{post.data.title}</a>
+            <p>{post.data.description}</p>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="muted">
+        Nothing tagged <code>{tag}</code> yet — it's on the way. Browse the
+        <a href="/blog/"> blog</a> in the meantime.
+      </p>
+    )
+  }
+</BaseLayout>
