@@ -1,5 +1,10 @@
 name: Deploy to GitHub Pages
 
+# Opt actions into the Node 24 runtime ahead of GitHub's June 16, 2026
+# default switch (Node 20 action runtimes are deprecated).
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 on:
   push:
     branches: [main]
