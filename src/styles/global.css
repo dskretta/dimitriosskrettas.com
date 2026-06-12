@@ -477,6 +477,11 @@ article img {
   border-radius: 8px;
 }
 
+/* theme-paired images (e.g. pre-rendered diagrams) — show one per theme */
+.theme-light-only { display: none; }
+html[data-theme='light'] .theme-dark-only { display: none; }
+html[data-theme='light'] .theme-light-only { display: block; }
+
 article blockquote {
   border-left: 3px solid var(--accent);
   margin: 0 0 1.25rem;
