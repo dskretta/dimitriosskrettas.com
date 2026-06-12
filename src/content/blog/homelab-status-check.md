@@ -49,15 +49,18 @@ token in a KV v2 secrets engine. Storing the token there raised my next
 question though, how could I have Terraform authenticate to OpenBao without me
 exporting another credential (the exact scenario I was trying to avoid).
 
-I read through some of HashiCorp's articles and documentation on AppRole
-authentication and decided to implement it, rather than authenticating
-Terraform to OpenBao with a static token. The flow ended up in three phases:
+I read through some of HashiCorp's
+[articles](https://developer.hashicorp.com/vault/tutorials/auth-methods/approle-best-practices)
+and [documentation](https://developer.hashicorp.com/vault/docs/auth/approle)
+on AppRole authentication and decided to implement it, rather than
+authenticating Terraform to OpenBao with a static token. The flow ended up in three phases:
 
 <img class="theme-dark-only" src="/images/homelab/authflow-dark.svg" alt="Sequence diagram: wrapped Secret ID handoff, AppRole login, then ephemeral credential fetch and provisioning" />
 <img class="theme-light-only" src="/images/homelab/authflow-light.svg" alt="Sequence diagram: wrapped Secret ID handoff, AppRole login, then ephemeral credential fetch and provisioning" />
 
 The remaining problem was how to handle the AppRole Secret ID itself. The
-article I read suggested using OpenBao's response wrapping. A bootstrap token
+article I read suggested using OpenBao's
+[response wrapping](https://openbao.org/docs/concepts/response-wrapping/). A bootstrap token
 (scoped only to generate Secret IDs) requests a wrapped, single-use token at
 runtime with a 120 second TTL. That token is unwrapped in memory by
 `pipeline.sh` and passed to Terraform via environment variables.
@@ -68,7 +71,8 @@ so, even if the credentials were compromised, the "blast radius" is limited
 to that single secret path.
 
 One thing I didn't initially realize: the Terraform Vault provider deprecated
-`vault_kv_secret_v2` as a data source in favor of an ephemeral resource
+`vault_kv_secret_v2` as a data source in favor of an
+[ephemeral resource](https://developer.hashicorp.com/terraform/language/resources/ephemeral)
 (Terraform >= 1.10). I swapped that to keep credentials from ever being written to state.
 
 All infrastructure-specific values (Bao address, Proxmox endpoint, bootstrap
