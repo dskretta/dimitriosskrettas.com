@@ -11,22 +11,37 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, remarkPluginFrontmatter } = await render(post);
 
-const date = post.data.pubDate.toLocaleDateString('en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-});
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+
+const date = fmt(post.data.pubDate);
+const updated = post.data.updatedDate ? fmt(post.data.updatedDate) : null;
+const minutesRead = remarkPluginFrontmatter.minutesRead;
 ---
 
-<BaseLayout title={post.data.title} description={post.data.description}>
+<BaseLayout title={post.data.title} description={post.data.description} ogType="article">
   <article>
     <span class="mono-label">// blog</span>
     <h1>{post.data.title}</h1>
     <div class="article-meta">
       {date}
-      {post.data.tags.length > 0 && <> · {post.data.tags.join(', ')}</>}
+      {updated && <> · updated {updated}</>}
+      {minutesRead && <> · {minutesRead} min read</>}
+      {
+        post.data.tags.length > 0 && (
+          <>
+            {' · '}
+            {post.data.tags.map((tag, i) => (
+              <>
+                {i > 0 && ', '}
+                <a href={`/blog/tags/${tag.toLowerCase()}/`}>{tag}</a>
+              </>
+            ))}
+          </>
+        )
+      }
     </div>
     <Content />
   </article>
