@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
-import { AUTHOR, TAGLINE, SOCIALS } from '../consts';
+import { AUTHOR, SOCIALS } from '../consts';
 
 const projects = (await getCollection('projects'))
   .filter((p) => p.data.featured)
@@ -19,13 +19,14 @@ const fmt = (d: Date) =>
 
 <BaseLayout>
   <section class="hero">
-    <span class="mono-label">// {TAGLINE}<span class="cursor"></span></span>
     <h1>{AUTHOR}</h1>
     <p class="lede">
-      Incoming cybersecurity software engineer intern at Viasat and lead
-      organizer of BSides Detroit. I like building detections, breaking things
-      in the lab to understand how they fail, and writing up what I learn
-      along the way.
+      Cybersecurity software engineer intern at Viasat and 2026 lead
+      organizer of BSides Detroit.
+    </p>
+    <p class="lede">
+      I like building detections, breaking things in the lab to understand how
+      they fail, and writing up what I learn along the way.
     </p>
     <div class="social-row">
       {SOCIALS.map(({ label, href }) => <a href={href} rel="me">{label}</a>)}

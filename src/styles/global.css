@@ -264,9 +264,9 @@ html[data-theme='light'] #theme-toggle .icon-moon { display: block; }
   text-decoration: none;
 }
 
-/* terminal-style marker on the active section */
+/* terminal-style marker on the active section, echoing the ~/ds$ logo */
 .site-nav a[aria-current='page']::before {
-  content: '/';
+  content: '~/';
   color: var(--text-faint);
   margin-right: 1px;
 }
@@ -306,24 +306,6 @@ html[data-theme='light'] #theme-toggle .icon-moon { display: block; }
   color: var(--text-muted);
   font-size: 1.1rem;
   max-width: 38rem;
-}
-
-.cursor {
-  display: inline-block;
-  width: 0.55em;
-  height: 1.05em;
-  background: var(--accent);
-  vertical-align: text-bottom;
-  margin-left: 2px;
-  animation: blink 1.1s steps(1) infinite;
-}
-
-@keyframes blink {
-  50% { opacity: 0; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .cursor { animation: none; }
 }
 
 .social-row {
