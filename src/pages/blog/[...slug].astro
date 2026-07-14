@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
+import getReadingTime from 'reading-time';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
@@ -11,14 +12,16 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content, remarkPluginFrontmatter } = await render(post);
+const { Content } = await render(post);
 
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
 
 const date = fmt(post.data.pubDate);
 const updated = post.data.updatedDate ? fmt(post.data.updatedDate) : null;
-const minutesRead = remarkPluginFrontmatter.minutesRead;
+const minutesRead = post.body
+  ? Math.max(1, Math.round(getReadingTime(post.body).minutes))
+  : null;
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description} ogType="article">
