@@ -2,11 +2,10 @@
 
 export const SITE_TITLE = 'Dimitrios Skrettas';
 export const SITE_DESCRIPTION =
-  'Cybersecurity student & BSides Detroit Lead Organizer. Projects, writeups, and notes on security engineering.';
+  'Cybersecurity software engineer intern at Viasat & 2026 BSides Detroit lead organizer. Projects, writeups, and notes on security engineering.';
 export const SITE_URL = 'https://dimitriosskrettas.com';
 
 export const AUTHOR = 'Dimitrios Skrettas';
-export const TAGLINE = 'cybersecurity student & BSides Detroit lead organizer';
 
 export const GITHUB_USERNAME = 'dskretta';
 export const GITHUB_URL = `https://github.com/${GITHUB_USERNAME}`;
