@@ -4,37 +4,32 @@ import { GITHUB_URL } from '../consts';
 ---
 
 <BaseLayout title="About" description="Who I am and what I'm working toward in security.">
-  <span class="mono-label">// whoami</span>
+  <p class="eyebrow">Background</p>
   <h1>About</h1>
 
   <p>
-    I'm Dimitrios, a cybersecurity student at Eastern Michigan University
-    and a cybersecurity software engineer intern at <strong>Viasat</strong>. I'm interested in how systems
-    break — and in building the detections, tooling, and habits that keep them
-    from breaking quietly.
+    I’m a cybersecurity student at Eastern Michigan University, graduating in December 2026, and a cybersecurity software engineer intern at <strong>Viasat</strong>. My work there centers on DevSecOps: building secure pipelines and tooling that make the safer path practical for engineering teams.
   </p>
 
   <p>
-    Outside of work and school, I was the 2026 lead organizer of <a
-      href="https://www.bsidesdetroit.org">BSides Detroit</a>, helping run
-    talks, workshops, and a CTF for the Michigan infosec community. I write up
-    what I learn on the <a href="/blog/">blog</a> and keep my code
-    on <a href={GITHUB_URL}>GitHub</a>.
+    In 2026, I was lead organizer and MC for <a href="/community/">BSides Detroit</a>, helping bring talks, workshops, and a CTF to the Michigan infosec community. I’m also studying for the OSCP.
   </p>
 
-  <h2>Currently</h2>
+  <h2>How I learn</h2>
+  <p>
+    I run a <a href="https://github.com/dskretta/homelab-infra">homelab managed as code</a> with Terraform, Proxmox, OpenBao, and Ansible. It is where I test detections, break things safely, and turn CTFs and study notes into writeups.
+  </p>
+
+  <p class="muted">Currently exploring dynamic honeypots for richer attacker telemetry and the aviation-systems threat landscape.</p>
+
+  <h2>Elsewhere</h2>
   <ul>
-    <li>Working — cybersecurity software engineer intern at Viasat</li>
-    <li>Preparing — DEF CON</li>
-    <li>Studying — finishing my bachelor's degree in cybersecurity, and learning Go on the side</li>
-    <li>Building — a <a href="https://github.com/dskretta/homelab-infra">homelab managed as code</a> with Terraform, Proxmox, and OpenBao</li>
-    <li>Researching — see the <a href="/research/">research</a> page</li>
+    <li>I appeared in a <a href="https://youtu.be/pb0kJXSy64E">DEF CON documentary on CyberNews</a>.</li>
+    <li>I write about detections, lab breakage, CTFs, and study notes.</li>
   </ul>
 
   <h2>Contact</h2>
   <p>
-    The best way to reach me is
-    on <a href="https://www.linkedin.com/in/dimitrios-skrettas">LinkedIn</a>, or
-    find my work on <a href={GITHUB_URL}>GitHub</a>.
+    Find me on <a href="https://www.linkedin.com/in/dimitrios-skrettas">LinkedIn</a> or <a href={GITHUB_URL}>GitHub</a>.
   </p>
 </BaseLayout>

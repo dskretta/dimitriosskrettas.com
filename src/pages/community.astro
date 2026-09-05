@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const community = (await getCollection('community', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const fmt = (date: Date) =>
+  date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: '2-digit', timeZone: 'UTC' });
+
+const year = (date: Date) =>
+  date.toLocaleDateString('en-US', { year: 'numeric', timeZone: 'UTC' });
+---
+
+<BaseLayout title="Community" description="Community organizing, volunteering, and speaking in security.">
+  <p class="eyebrow">Giving back</p>
+  <h1>Community</h1>
+  <p class="lede">Organizing, volunteering, and speaking in the security community.</p>
+  <div class="ledger">
+    {
+      community.map((entry) => (
+        <article>
+          <time datetime={entry.data.date.toISOString()}>{fmt(entry.data.date)}</time>
+          <div>
+            {entry.data.link ? (
+              <a class="ledger-title" href={entry.data.link}>{entry.data.role} · {entry.data.org} <span>→</span></a>
+            ) : <strong class="ledger-title">{entry.data.role} · {entry.data.org}</strong>}
+            <p class="muted">{year(entry.data.date)}{entry.data.endDate && `–${year(entry.data.endDate)}`}</p>
+            {entry.data.description && <p>{entry.data.description}</p>}
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</BaseLayout>

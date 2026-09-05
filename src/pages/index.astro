@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
-import { AUTHOR, SOCIALS } from '../consts';
+import { SOCIALS } from '../consts';
 
 const projects = (await getCollection('projects'))
   .filter((p) => p.data.featured)
@@ -19,24 +19,28 @@ const fmt = (d: Date) =>
 
 <BaseLayout>
   <section class="hero">
-    <h1>{AUTHOR}</h1>
-    <p class="lede">
-      Cybersecurity software engineer intern at Viasat and 2026 lead
-      organizer of BSides Detroit.
-    </p>
-    <p class="lede">
-      I like building detections, breaking things in the lab to understand how
-      they fail, and writing up what I learn along the way.
-    </p>
+    <p class="eyebrow">Security engineering · Detroit</p>
+    <h1 class="hero-name">Dimitrios <span>Skrettas</span></h1>
+    <hr class="rule" />
+    <p class="lede">I build detections and DevSecOps tooling, break things in the lab, and write up what I learn along the way.</p>
     <div class="social-row">
       {SOCIALS.map(({ label, href }) => <a href={href} rel="me">{label}</a>)}
     </div>
   </section>
 
   <section>
+    <p class="eyebrow">Currently</p>
+    <dl class="currently">
+      <div><dt>Building</dt><dd>DevSecOps pipelines and security tooling</dd></div>
+      <div><dt>Studying</dt><dd>OSCP</dd></div>
+      <div><dt>Recently</dt><dd>Lead organizer &amp; MC, BSides Detroit 2026</dd></div>
+    </dl>
+  </section>
+
+  <section>
     <div class="section-head">
-      <h2>Featured projects</h2>
-      <a class="more" href="/projects/">view all →</a>
+      <h2>Selected work</h2>
+      <a class="more" href="/projects/">view all</a>
     </div>
     <div class="card-grid">
       {projects.map((project) => <ProjectCard project={project} />)}
@@ -45,8 +49,8 @@ const fmt = (d: Date) =>
 
   <section>
     <div class="section-head">
-      <h2>Recent posts</h2>
-      <a class="more" href="/blog/">view all →</a>
+      <h2>Recent writing</h2>
+      <a class="more" href="/blog/">view all</a>
     </div>
     <ul class="post-list">
       {
@@ -59,5 +63,11 @@ const fmt = (d: Date) =>
         ))
       }
     </ul>
+  </section>
+
+  {/* TODO: live homelab status section goes here once wired to real infra — no placeholder data until then */}
+
+  <section class="featured-in">
+    <p class="muted">As featured in <a href="https://youtu.be/pb0kJXSy64E" target="_blank" rel="noopener">DEF CON documentary (CyberNews) →</a></p>
   </section>
 </BaseLayout>
