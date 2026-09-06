@@ -1,0 +1,34 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const competitions = (await getCollection('competitions', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const fmt = (date: Date) =>
+  date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: '2-digit', timeZone: 'UTC' });
+---
+
+<BaseLayout title="Competitions" description="A ledger of CTFs and security competitions.">
+  <p class="eyebrow">CTF ledger</p>
+  <h1>Competitions</h1>
+  <p class="lede">A running record of the competitions, teams, and writeups behind the learning.</p>
+  <div class="ledger">
+    {
+      competitions.map((competition) => (
+        <article>
+          <time datetime={competition.data.date.toISOString()}>{fmt(competition.data.date)}</time>
+          <div>
+            {competition.data.writeup ? (
+              <a class="ledger-title" href={competition.data.writeup}>{competition.data.event} <span>→</span></a>
+            ) : <strong class="ledger-title">{competition.data.event}</strong>}
+            {(competition.data.placement || competition.data.team) && (
+              <p class="muted">{[competition.data.placement, competition.data.team].filter(Boolean).join(' · ')}</p>
+            )}
+            {competition.data.description && <p>{competition.data.description}</p>}
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</BaseLayout>

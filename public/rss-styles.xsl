@@ -11,30 +11,27 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <style>
           :root {
-            --bg: #0b0e14;
-            --bg-raised: #11151f;
-            --border: #1e2533;
-            --text: #e6e9ef;
-            --text-muted: #97a0b3;
-            --accent: #34d399;
-            --accent-dim: rgba(52, 211, 153, 0.12);
-            --font-sans: ui-sans-serif, system-ui, 'Segoe UI', Roboto, sans-serif;
-            --font-mono: ui-monospace, 'Cascadia Code', Consolas, Menlo, monospace;
+            --bg:#0a0a0b; --bg-raised:#131316; --border:#232327;
+            --text:#f3f3f1; --text-muted:#a9a9a6; --accent:#5b76ff;
+            --accent-dim:rgba(91,118,255,0.14);
+            --font-display: 'Archivo', ui-sans-serif, system-ui, sans-serif;
+            --font-body: 'Spectral', Georgia, 'Times New Roman', serif;
+            --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
           }
           * { box-sizing: border-box; }
           body {
             margin: 0;
             background: var(--bg);
             color: var(--text);
-            font-family: var(--font-sans);
-            font-size: 1.0625rem;
+            font-family: var(--font-body);
+            font-size: 1.15rem;
             line-height: 1.7;
           }
           main { max-width: 44rem; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
-          h1 { letter-spacing: -0.015em; margin: 0.4rem 0 1rem; }
+          h1 { font-family: var(--font-display); letter-spacing: -0.025em; margin: 0.4rem 0 1rem; }
           a { color: var(--accent); text-decoration: none; }
           a:hover { text-decoration: underline; text-underline-offset: 3px; }
-          .mono-label { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); }
+          .eyebrow { font-family: var(--font-display); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
           .explainer {
             background: var(--bg-raised);
             border: 1px solid var(--border);
@@ -67,7 +64,7 @@
       </head>
       <body>
         <main>
-          <span class="mono-label">// rss feed</span>
+          <span class="eyebrow">RSS feed</span>
           <h1><xsl:value-of select="/rss/channel/title"/></h1>
           <div class="explainer">
             <strong>This is an RSS feed.</strong> It's meant for feed readers,

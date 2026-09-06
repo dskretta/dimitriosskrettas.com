@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import getReadingTime from 'reading-time';
+import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
@@ -24,9 +25,17 @@ const minutesRead = post.body
   : null;
 ---
 
-<BaseLayout title={post.data.title} description={post.data.description} ogType="article">
+<BaseLayout title={post.data.title} description={post.data.description} ogType="article" image={post.data.heroImage}>
   <article>
-    <span class="mono-label">// blog</span>
+    <p class="eyebrow">Writing</p>
+    {
+      post.data.heroImage && (
+        <figure>
+          <Image src={post.data.heroImage} alt={post.data.heroImageCaption ?? ''} />
+          {post.data.heroImageCaption && <figcaption>{post.data.heroImageCaption}</figcaption>}
+        </figure>
+      )
+    }
     <h1>{post.data.title}</h1>
     <div class="article-meta">
       {date}

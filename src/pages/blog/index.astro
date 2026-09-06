@@ -10,9 +10,9 @@ const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: '2-digit', timeZone: 'UTC' });
 ---
 
-<BaseLayout title="Blog" description="Writeups and notes on security engineering.">
-  <span class="mono-label">// writeups & notes</span>
-  <h1>Blog</h1>
+<BaseLayout title="Writing" description="Writeups and notes on security engineering.">
+  <p class="eyebrow">Notes &amp; writeups</p>
+  <h1>Writing</h1>
   <ul class="post-list">
     {
       posts.map((post) => (

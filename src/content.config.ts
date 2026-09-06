@@ -3,12 +3,40 @@ import { glob } from 'astro/loaders';
 
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     description: z.string(),
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
     tags: z.array(z.string()).default([]),
+    draft: z.boolean().default(false),
+    heroImage: image().optional(),
+    heroImageCaption: z.string().optional(),
+  }),
+});
+
+const competitions = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/competitions' }),
+  schema: z.object({
+    event: z.string(),
+    date: z.coerce.date(),
+    team: z.string().optional(),
+    placement: z.string().optional(),
+    description: z.string().optional(),
+    writeup: z.string().url().or(z.string().startsWith('/')).optional(),
+    draft: z.boolean().default(false),
+  }),
+});
+
+const community = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/community' }),
+  schema: z.object({
+    role: z.string(),
+    org: z.string(),
+    date: z.coerce.date(),
+    endDate: z.coerce.date().optional(),
+    description: z.string().optional(),
+    link: z.string().url().or(z.string().startsWith('/')).optional(),
     draft: z.boolean().default(false),
   }),
 });
@@ -27,4 +55,4 @@ const projects = defineCollection({
   }),
 });
 
-export const collections = { blog, projects };
+export const collections = { blog, projects, competitions, community };

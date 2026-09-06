@@ -18,8 +18,9 @@ export const SOCIALS: { label: string; href: string }[] = [
 ];
 
 export const NAV = [
-  { label: 'projects', href: '/projects/' },
-  { label: 'research', href: '/research/' },
-  { label: 'blog', href: '/blog/' },
-  { label: 'about', href: '/about/' },
+  { label: 'Projects', href: '/projects/' },
+  { label: 'Writing', href: '/blog/' },
+  { label: 'Competitions', href: '/competitions/' },
+  { label: 'Community', href: '/community/' },
+  { label: 'About', href: '/about/' },
 ];
